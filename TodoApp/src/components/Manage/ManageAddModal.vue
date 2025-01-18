@@ -9,7 +9,7 @@
         </div>
         <div class="mb-4">
           <label for="set_for" class="block text-gray-700">Set For:</label>
-          <VueDatePicker v-model="setFor" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300 text-gray-700" required />
+          <VueDatePicker v-model="date" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300 text-gray-700" required />
         </div>
         <div class="flex justify-end">
           <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring">Submit</button>
@@ -50,7 +50,7 @@ export default {
           },
           body: JSON.stringify({
             title: this.title,
-            set_for: this.setFor
+            set_for: this.date
           })
         });
 
