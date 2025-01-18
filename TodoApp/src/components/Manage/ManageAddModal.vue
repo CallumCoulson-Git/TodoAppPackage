@@ -1,7 +1,7 @@
 <template>
-  <div v-if="showModal" class="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center">
+  <div class="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center">
     <div class="bg-white p-6 rounded-lg w-96">
-      <h2 class="text-2xl font-bold mb-4">Add New Todo</h2>
+      <h2 class="text-2xl font-bold mb-4 text-gray-700">Add New Todo</h2>
       <form @submit.prevent="submitForm">
         <div class="mb-4">
           <label for="title" class="block text-gray-700">Title:</label>
@@ -9,7 +9,7 @@
         </div>
         <div class="mb-4">
           <label for="set_for" class="block text-gray-700">Set For:</label>
-          <input type="datetime-local" id="set_for" v-model="set_for" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300" required />
+          <input type="datetime-local" id="set_for" v-model="setFor" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300" required />
         </div>
         <div class="flex justify-end">
           <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring">Submit</button>
@@ -24,23 +24,38 @@
 export default {
   data() {
     return {
-      showModal: false,
       title: '',
       setFor: ''
     };
   },
   methods: {
-    openModal() {
-      this.showModal = true;
-    },
     closeModal() {
-      this.showModal = false;
+      this.$emit('close');
     },
-    submitForm() {
-      // Handle form submission logic here
-      console.log('Title:', this.title);
-      console.log('Set For:', this.setFor);
-      this.closeModal();
+    async submitForm() {
+      try {
+        const user = JSON.parse(sessionStorage.getItem('user'));
+        const response = await fetch(`http://localhost:8000/reserve/?user_id=${user.id}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            title: this.title,
+            set_for: this.setFor
+          })
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to add listing');
+        }
+
+        const data = await response.json();
+        console.log('Listing added:', data);
+        this.closeModal();
+      } catch (error) {
+        console.error('Error:', error);
+      }
     }
   }
 };
