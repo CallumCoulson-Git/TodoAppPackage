@@ -13,13 +13,13 @@ services:
 
   frontend:
     build:
-      context: ./TodoApp/TodoApp
+      context: ./TodoApp
       dockerfile: Dockerfile
     container_name: vue-frontend
     ports:
       - "8080:8080"
     volumes:
-      - ./TodoApp/TodoApp:/app-frontend
+      - ./TodoApp:/app-frontend
     environment:
       - NODE_ENV=development
 
