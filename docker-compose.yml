@@ -1,0 +1,28 @@
+services:
+  backend:
+    build:
+      context: ./FastApiBackend
+      dockerfile: Dockerfile
+    container_name: fastapi-backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./FastApiBackend:/app-backend
+    environment:
+      - DATABASE_URL=./app-backend/database.db
+
+  frontend:
+    build:
+      context: ./TodoApp/TodoApp
+      dockerfile: Dockerfile
+    container_name: vue-frontend
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./TodoApp/TodoApp:/app-frontend
+    environment:
+      - NODE_ENV=development
+
+volumes:
+  data:
+    driver: local
