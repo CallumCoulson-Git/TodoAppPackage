@@ -22,7 +22,7 @@ export default {
   },
   methods: {
     fetchListing() {
-      userFromSession = JSON.parse(sessionStorage.getItem('user'));
+      const user = JSON.parse(sessionStorage.getItem('user'));
       
       fetch(`http://localhost:8000/user/${user.id}/reserves/`)
         .then(response => response.json())
@@ -35,7 +35,7 @@ export default {
     },
     addListing() {
       // Logic to add a listing
-      console.log('Listing added');
+      console.log(this.listing);
     }
   },
   mounted() {
@@ -43,9 +43,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.item {
-  width: 100%;
-}
-</style>

@@ -1,12 +1,7 @@
 <script setup>
 import ListingItem from '../ListingItem.vue'
-import { ref } from 'vue'
-import ManageAdd from './ManageAdd.vue';
-import ManageRemove from './ManageRemove.vue';
-import ManageUpdate from './ManageUpdate.vue';
-import ManageShowListing from './ManageShowListing.vue';
-
-const openReadmeInEditor = () => fetch('/__open-in-editor?file=README.md')
+import ManageControls from './ManageControls.vue'
+import ManageShowListing from './ManageShowListing.vue'
 </script>
 
 <template>
@@ -26,11 +21,6 @@ const openReadmeInEditor = () => fetch('/__open-in-editor?file=README.md')
     <p>Click the button below to add a new listing</p>
   </ManageShowListing>
 
-  <ManageAdd>
-    <template #icon>
-      <i class="fas fa-plus"></i>
-    </template>
-    <template #heading>Add Listing</template>
-    <p>Click the button below to add a new listing</p>
-  </ManageAdd>
+  <ManageControls>
+  </ManageControls>
 </template>

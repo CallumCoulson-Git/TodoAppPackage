@@ -35,7 +35,7 @@ const handleSubmit = async () => {
     console.log('User data:', data)
     sessionStorage.setItem('user', JSON.stringify(data))
     console.log('User data saved to session storage:', data)
-    router.push('/')  // Redirect to home page
+    router.push('/manage')  // Redirect to home page
   } catch (error) {
     console.error('Error:', error)
     errorMessage.value = 'Login failed'
