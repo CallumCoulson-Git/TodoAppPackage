@@ -1,18 +1,20 @@
 <template>
-  <div v-if="showModal" class="modal-overlay">
-    <div class="modal-container">
-      <h2>Add New Todo</h2>
+  <div v-if="showModal" class="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center">
+    <div class="bg-white p-6 rounded-lg w-96">
+      <h2 class="text-2xl font-bold mb-4">Add New Todo</h2>
       <form @submit.prevent="submitForm">
-        <div class="form-group">
-          <label for="title">Title:</label>
-          <input type="text" id="title" v-model="title" required />
+        <div class="mb-4">
+          <label for="title" class="block text-gray-700">Title:</label>
+          <input type="text" id="title" v-model="title" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300" required />
         </div>
-        <div class="form-group">
-          <label for="set_for">Set For:</label>
-          <input type="datetime-local" id="set_for" v-model="setFor" required />
+        <div class="mb-4">
+          <label for="set_for" class="block text-gray-700">Set For:</label>
+          <input type="datetime-local" id="set_for" v-model="set_for" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300" required />
         </div>
-        <button type="submit">Submit</button>
-        <button type="button" @click="closeModal">Cancel</button>
+        <div class="flex justify-end">
+          <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring">Submit</button>
+          <button type="button" @click="closeModal" class="ml-2 bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 focus:outline-none focus:ring">Cancel</button>
+        </div>
       </form>
     </div>
   </div>
@@ -43,32 +45,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.modal-container {
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  width: 300px;
-}
-
-.form-group {
-  margin-bottom: 15px;
-}
-
-button {
-  margin-right: 10px;
-}
-</style>
