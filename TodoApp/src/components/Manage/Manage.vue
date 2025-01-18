@@ -1,5 +1,5 @@
 <script setup>
-import ListingItem from './ListingItem.vue'
+import ListingItem from '../ListingItem.vue'
 import { ref } from 'vue'
 import ManageAdd from './ManageAdd.vue';
 import ManageRemove from './ManageRemove.vue';
@@ -18,13 +18,19 @@ const openReadmeInEditor = () => fetch('/__open-in-editor?file=README.md')
     Below You can manage the entry listings with the specified buttons
   </ListingItem>
 
+  <ManageShowListing>
+    <template #icon>
+      <i class="fas fa-plus"></i>
+    </template>
+    <template #heading>Add Listing</template>
+    <p>Click the button below to add a new listing</p>
+  </ManageShowListing>
 
+  <ManageAdd>
+    <template #icon>
+      <i class="fas fa-plus"></i>
+    </template>
+    <template #heading>Add Listing</template>
+    <p>Click the button below to add a new listing</p>
+  </ManageAdd>
 </template>
-
-<ManageShowListing>
-  <template #icon>
-    <i class="fas fa-eye"></i>
-  </template>
-  <template #heading>Show Listing</template>
-  <p>Click the button below to show the listing</p>
-</ManageShowListing>
