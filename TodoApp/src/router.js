@@ -2,7 +2,7 @@ import { createWebHistory, createRouter } from 'vue-router'
 
 import MainContent from './components/MainContent.vue'
 import LoginForm from './components/LoginForm.vue'
-import Manage from './components/LoginForm.vue'
+import Manage from './components/Manage.vue'
 import Database from './components/LoginForm.vue'
 import RegisterForm from './components/RegisterForm.vue'
 

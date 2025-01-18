@@ -10,6 +10,8 @@ const props = defineProps({
 })
 
 const route = useRoute()
+const isUserLoggedIn = sessionStorage.getItem('user') !== null
+console.log(isUserLoggedIn)
 </script>
 
 <template>
@@ -22,9 +24,11 @@ const route = useRoute()
         <p>
           <strong>Current route path:</strong> {{ route.fullPath }}
         </p>
+        <RouterLink v-if="isUserLoggedIn" to="/listings" class="hover:text-gray-400">Listings</RouterLink>
         <RouterLink to="/" class="hover:text-gray-400">Home</RouterLink>
         <RouterLink to="/manage" class="hover:text-gray-400">Manage</RouterLink>
         <RouterLink to="/login" class="hover:text-gray-400">Login</RouterLink>
+        
       </nav>
     </div>
   </header>
