@@ -5,11 +5,11 @@
       <form @submit.prevent="submitForm">
         <div class="mb-4">
           <label for="title" class="block text-gray-700">Title:</label>
-          <input type="text" id="title" v-model="title" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300" required />
+          <input type="text" id="title" v-model="title" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300 text-gray-700" required />
         </div>
         <div class="mb-4">
           <label for="set_for" class="block text-gray-700">Set For:</label>
-          <input type="datetime-local" id="set_for" v-model="setFor" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300" required />
+          <VueDatePicker v-model="setFor" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300 text-gray-700" required />
         </div>
         <div class="flex justify-end">
           <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring">Submit</button>
@@ -21,6 +21,12 @@
 </template>
 
 <script>
+import { ref } from 'vue';
+import VueDatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
+
+const date = ref();
+
 export default {
   data() {
     return {
@@ -35,10 +41,12 @@ export default {
     async submitForm() {
       try {
         const user = JSON.parse(sessionStorage.getItem('user'));
+        const token = sessionStorage.getItem('token');
         const response = await fetch(`http://localhost:8000/reserve/?user_id=${user.id}`, {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
           },
           body: JSON.stringify({
             title: this.title,
@@ -47,6 +55,7 @@ export default {
         });
 
         if (!response.ok) {
+          console.log(response);
           throw new Error('Failed to add listing');
         }
 
@@ -60,3 +69,7 @@ export default {
   }
 };
 </script>
+
+<style>
+@import url('https://unpkg.com/vue-datetime-picker/dist/vue-datetime-picker.css');
+</style>

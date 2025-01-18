@@ -6,5 +6,6 @@ import './output.css'
 
 createApp(App)
   .use(router)
+  .component('VueDatePicker', VueDatePicker)
   .mount('#app')
   

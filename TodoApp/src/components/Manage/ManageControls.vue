@@ -1,10 +1,6 @@
 <template>
   <div class="flex justify-between items-center rounded-lg p-5">
     <div class="flex items-center">
-      <i class="fas fa-plus mr-2"></i>
-      <ManageAdd class="item"></ManageAdd>
-    </div>
-    <div class="flex items-center">
       <i class="fas fa-edit mr-2"></i>
       <ManageUpdate class="item"></ManageUpdate>
     </div>
@@ -16,13 +12,11 @@
 </template>
 
 <script>
-import ManageAdd from './ManageAdd.vue';
 import ManageRemove from './ManageRemove.vue';
 import ManageUpdate from './ManageUpdate.vue';
 
 export default {
   components: {
-    ManageAdd,
     ManageRemove,
     ManageUpdate,
   }

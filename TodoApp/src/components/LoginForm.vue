@@ -15,13 +15,13 @@ const handleSubmit = async () => {
   }
 
   try {
-    const response = await fetch('http://localhost:8000/login/', {
+    const response = await fetch('http://localhost:8000/token', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: new URLSearchParams({
-        email: email.value,
+        username: email.value,
         password: password.value,
       }),
     })
@@ -32,10 +32,10 @@ const handleSubmit = async () => {
     const data = await response.json()
     console.log('Login successful:', data)
     isLoggedIn.value = true
-    console.log('User data:', data)
-    sessionStorage.setItem('user', JSON.stringify(data))
-    console.log('User data saved to session storage:', data)
-    router.push('/manage')  // Redirect to home page
+    sessionStorage.setItem('token', data.access_token)
+    sessionStorage.setItem('email', JSON.stringify({ email: email.value }))
+    sessionStorage.setItem('user', JSON.stringify({ id: data.user.id}))
+    router.push('/manage')  // Redirect to manage page
   } catch (error) {
     console.error('Error:', error)
     errorMessage.value = 'Login failed'

@@ -61,6 +61,7 @@ class Reserve(SQLModel, table=True):
 class Token(BaseModel):
     access_token: str
     token_type: str
+    user: User
     
 class TokenData(BaseModel):
     username: Optional[str] = None
@@ -144,10 +145,10 @@ async def get_current_user(token: str = Depends(oauth2_scheme), session: Session
     )
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        username: str = payload.get("sub")
-        if username is None:
+        email: str = payload.get("sub")
+        if email is None:
             raise credentials_exception
-        token_data = TokenData(username=username)
+        token_data = TokenData(username=email)
     except JWTError:
         raise credentials_exception
     user = session.exec(select(User).where(User.email == token_data.username)).first()
@@ -185,7 +186,7 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
     access_token = create_access_token(
         data={"sub": user.email}, expires_delta=access_token_expires
     )
-    return {"access_token": access_token, "token_type": "bearer"}
+    return {"access_token": access_token, "token_type": "bearer", "user": user}
 
 @app.post("/user/", response_model=User)
 def create_user(user: User, session:  Annotated[Session, SessionDep]):
@@ -259,7 +260,7 @@ def create_dummy_data_api():
 
 
 @app.post("/reserve/")
-def create_reserve(reserve: Reserve, user_id: int, session: Annotated[Session, SessionDep], current_user: User = Depends(get_current_active_user)) -> Reserve:
+def create_reserve(reserve: Reserve, user_id: int, session: Annotated[Session, SessionDep]) -> Reserve:
     user = session.get(User, user_id)
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
