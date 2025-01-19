@@ -28,5 +28,4 @@ function fetchListing() {
     <p>Click the button below to add a new listing</p>
   </ManageShowListing>
   <ManageAdd @listing-added="fetchListing"></ManageAdd>
-  <ManageControls></ManageControls>
 </template>
