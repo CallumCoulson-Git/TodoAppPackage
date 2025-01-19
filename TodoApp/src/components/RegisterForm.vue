@@ -1,12 +1,14 @@
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 const email = ref('')
 const password = ref('')
 const confirmPassword = ref('')
 const errorMessage = ref('')
+const router = useRouter()
 
-const handleSubmit = () => {
+const handleSubmit = async () => {
   if (password.value !== confirmPassword.value) {
     errorMessage.value = 'Passwords do not match'
     return
@@ -15,10 +17,30 @@ const handleSubmit = () => {
     errorMessage.value = 'All fields are required'
     return
   }
-  console.log('Email:', email.value)
-  console.log('Password:', password.value)
-  // TODO: Reglogic
-  errorMessage.value = ''
+
+  try {
+    const response = await fetch('http://localhost:8000/user/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: email.value,
+        hashed_password: password.value,
+        is_active: true
+      }),
+    })
+    if (!response.ok) {
+      throw new Error('Registration failed')
+    }
+
+    const data = await response.json()
+    console.log('Registration successful:', data)
+    router.push('/login')  // Redirect to login page
+  } catch (error) {
+    console.error('Error:', error)
+    errorMessage.value = 'Registration failed'
+  }
 }
 </script>
 

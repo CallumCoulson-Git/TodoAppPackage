@@ -1,6 +1,6 @@
 <script setup>
 import { defineProps } from 'vue'
-import { RouterLink, useRoute } from 'vue-router'
+import { RouterLink, useRoute, useRouter } from 'vue-router'
 
 const props = defineProps({
   msg: {
@@ -10,8 +10,13 @@ const props = defineProps({
 })
 
 const route = useRoute()
+const router = useRouter()
 const isUserLoggedIn = sessionStorage.getItem('user') !== null
-console.log(isUserLoggedIn)
+
+const handleLogout = () => {
+  sessionStorage.clear()
+  router.push('/login')
+}
 </script>
 
 <template>
@@ -26,8 +31,8 @@ console.log(isUserLoggedIn)
         </p>
         <RouterLink to="/" class="hover:text-gray-400">Home</RouterLink>
         <RouterLink v-if="isUserLoggedIn" to="/manage" class="hover:text-gray-400">Manage</RouterLink>
-        <RouterLink to="/login" class="hover:text-gray-400">Login</RouterLink>
-        
+        <RouterLink v-if="!isUserLoggedIn" to="/login" class="hover:text-gray-400">Login</RouterLink>
+        <button v-if="isUserLoggedIn" @click="handleLogout" class="hover:text-gray-400">Logout</button>
       </nav>
     </div>
   </header>

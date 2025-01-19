@@ -11,10 +11,13 @@
         </li>
       </ul>
     </div>
+    <ManageControls />
   </div>
 </template>
 
 <script>
+import ManageControls from './ManageControls.vue'
+
 export default {
   data() {
     return {

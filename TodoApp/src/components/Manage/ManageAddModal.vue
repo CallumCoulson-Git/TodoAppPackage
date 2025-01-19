@@ -5,11 +5,11 @@
       <form @submit.prevent="submitForm">
         <div class="mb-4">
           <label for="title" class="block text-gray-700">Title:</label>
-          <input type="text" id="title" v-model="title" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300 text-gray-700" required />
+          <input type="text" id="title" v-model="title" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300" required />
         </div>
         <div class="mb-4">
-          <label for="set_for" class="block text-gray-700">Set For:</label>
-          <VueDatePicker v-model="date" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300 text-gray-700" required />
+          <label for="setFor" class="block text-gray-700">Set For:</label>
+          <DatePicker v-model="setFor" dateFormat="dd/mm/yy" />
         </div>
         <div class="flex justify-end">
           <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring">Submit</button>
@@ -22,10 +22,8 @@
 
 <script>
 import { ref } from 'vue';
-import VueDatePicker from '@vuepic/vue-datepicker';
-import '@vuepic/vue-datepicker/dist/main.css'
 
-const date = ref();
+const setFor = ref();
 
 export default {
   data() {
@@ -50,7 +48,7 @@ export default {
           },
           body: JSON.stringify({
             title: this.title,
-            set_for: this.date
+            set_for: this.setFor
           })
         });
 

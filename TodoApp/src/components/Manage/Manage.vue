@@ -1,6 +1,6 @@
 <script setup>
 import ListingItem from '../ListingItem.vue'
-import ManageControls from './ManageControls.vue'
+import ManageAdd from './ManageAdd.vue';
 import ManageShowListing from './ManageShowListing.vue'
 </script>
 
@@ -20,7 +20,6 @@ import ManageShowListing from './ManageShowListing.vue'
     <template #heading>Add Listing</template>
     <p>Click the button below to add a new listing</p>
   </ManageShowListing>
-
-  <ManageControls>
-  </ManageControls>
+  <ManageAdd></ManageAdd>
+  <ManageControls></ManageControls>
 </template>
