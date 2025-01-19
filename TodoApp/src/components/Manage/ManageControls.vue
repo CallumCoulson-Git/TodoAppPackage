@@ -1,10 +1,10 @@
 <template>
   <div class="flex justify-between items-center rounded-lg p-5">
-    <div class="flex items-center">
+    <div class="flex items-center mr-5">
       <i class="fas fa-edit mr-2"></i>
       <ManageUpdate class="item" :reserveId="reserveId" :initialTitle="reserve.title" :initialSetFor="reserve.set_for" @listing-updated="handleUpdate" />
     </div>
-    <div class="flex items-center">
+    <div class="flex items-center mr-5">
       <i class="fas fa-trash mr-2"></i>
       <ManageRemove class="item" :reserveId="reserveId" @remove="handleRemove"></ManageRemove>
     </div>

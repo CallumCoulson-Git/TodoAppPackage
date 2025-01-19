@@ -1,17 +1,6 @@
 <template>
-  <div class="item mb-5">
-    <i>
-      <slot name="icon"></slot>
-    </i>
-    <div class="details">
-      <h3 class="text-xl">
-        <slot name="heading"></slot>
-      </h3>
-      <slot></slot>
-      <button @click="updateListing" class="btn btn-warning mt-3">Update Listing</button>
-    </div>
+    <button @click="updateListing" class="btn btn-warning">Update Listing</button>
     <ManageUpdateModal v-show="showModal" :reserveId="reserveId" :initialTitle="initialTitle" :initialSetFor="initialSetFor" @close="closeModal" @listing-updated="listingUpdated" />
-  </div>
 </template>
 
 <script>

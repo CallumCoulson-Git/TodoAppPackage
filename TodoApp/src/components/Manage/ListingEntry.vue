@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-between items-center mb-2">
+  <div class="flex justify-between items-center mb-2 bg-white p-4 rounded-lg shadow-lg text-gray-700">
     <div class="w-half">
       <h4 class="text-lg font-bold">{{ reserve.title }}</h4>
       <p>Set for: {{ new Date(reserve.set_for).toLocaleString() }}</p>

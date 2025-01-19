@@ -1,7 +1,7 @@
 <template>
   <div class="item mb-5 w-full">
     <div class="details">
-      <h3 class="text-xl">
+      <h3 class="text-xl pb-5">
         Listings
       </h3>
       <ul>
