@@ -9,7 +9,7 @@
         </div>
         <div class="mb-4">
           <label for="setFor" class="block text-gray-700">Set For:</label>
-          <DatePicker v-model="setFor" dateFormat="dd/mm/yy" />
+          <DatePicker v-model="setFor" dateFormat="dd/mm/yy" showTime hourFormat="24" fluid />
         </div>
         <div class="flex justify-end">
           <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring">Submit</button>

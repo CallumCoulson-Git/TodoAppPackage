@@ -7,6 +7,7 @@ from typing_extensions import Annotated
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from jose import JWTError, jwt
 from fastapi.middleware.cors import CORSMiddleware
+from dateutil.parser import isoparse
 
 import bcrypt
 
@@ -48,7 +49,7 @@ class Reserve(SQLModel, table=True):
     @validator('set_for', pre=True, always=True)
     def parse_set_for(cls, value):
         if isinstance(value, str):
-            return datetime.fromisoformat(value)
+            return isoparse(value)
         return value
 
     class Config:
