@@ -266,7 +266,7 @@ def create_reserve(reserve: Reserve, user_id: int, session: Annotated[Session, S
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
     if isinstance(reserve.set_for, str):
-        reserve.set_for = datetime.fromisoformat(reserve.set_for)
+        reserve.set_for = isoparse(reserve.set_for)
     reserve.owner = user
     session.add(reserve)
     session.commit()

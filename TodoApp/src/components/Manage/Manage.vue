@@ -13,13 +13,23 @@ import ManageShowListing from './ManageShowListing.vue'
     Below You can manage the entry listings with the specified buttons
   </ListingItem>
 
-  <ManageShowListing>
+  <ManageShowListing @listing-added="fetchListing">
     <template #icon>
       <i class="fas fa-plus"></i>
     </template>
     <template #heading>Add Listing</template>
     <p>Click the button below to add a new listing</p>
   </ManageShowListing>
-  <ManageAdd></ManageAdd>
+  <ManageAdd @listing-added="fetchListing"></ManageAdd>
   <ManageControls></ManageControls>
 </template>
+
+<script>
+export default {
+  methods: {
+    fetchListing() {
+      this.$refs.showListing.fetchListing();
+    }
+  }
+}
+</script>

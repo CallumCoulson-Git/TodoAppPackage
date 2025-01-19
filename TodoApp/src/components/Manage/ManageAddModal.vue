@@ -9,7 +9,7 @@
         </div>
         <div class="mb-4">
           <label for="setFor" class="block text-gray-700">Set For:</label>
-          <DatePicker v-model="setFor" dateFormat="dd/mm/yy" showTime hourFormat="24" fluid />
+          <DatePicker v-model="setFor" dateFormat="dd/mm/yy" showTime hourFormat="24" />
         </div>
         <div class="flex justify-end">
           <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring">Submit</button>
@@ -59,6 +59,7 @@ export default {
 
         const data = await response.json();
         console.log('Listing added:', data);
+        this.$emit('listing-added');
         this.closeModal();
       } catch (error) {
         console.error('Error:', error);
@@ -67,7 +68,3 @@ export default {
   }
 };
 </script>
-
-<style>
-@import url('https://unpkg.com/vue-datetime-picker/dist/vue-datetime-picker.css');
-</style>

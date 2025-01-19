@@ -6,12 +6,18 @@
       </h3>
       <ul>
         <li v-for="reserve in reserves" :key="reserve.id" class="mb-2">
-          <h4 class="text-lg font-bold">{{ reserve.title }}</h4>
-          <p>Set for: {{ new Date(reserve.set_for).toLocaleString() }}</p>
+          <div>
+            <div class="w-half">
+              <h4 class="text-lg font-bold">{{ reserve.title }}</h4>
+              <p>Set for: {{ new Date(reserve.set_for).toLocaleString() }}</p>
+            </div>
+            <div class="w-half">
+              <ManageControls :reserveId="reserve.id" @listing-removed="fetchListing" @listing-added="fetchListing" />
+            </div>
+          </div>  
         </li>
       </ul>
     </div>
-    <ManageControls />
   </div>
 </template>
 
@@ -19,6 +25,9 @@
 import ManageControls from './ManageControls.vue'
 
 export default {
+  components: {
+    ManageControls
+  },
   data() {
     return {
       reserves: []

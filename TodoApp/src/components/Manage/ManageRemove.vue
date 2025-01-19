@@ -1,24 +1,35 @@
 <template>
-  <div class="item mb-5">
-    <i>
-      <slot name="icon"></slot>
-    </i>
-    <div class="details">
-      <h3 class="text-xl">
-        <slot name="heading"></slot>
-      </h3>
-      <slot></slot>
-      <button @click="removeListing" class="btn btn-danger mt-3">Remove Listing</button>
-    </div>
-  </div>
+  <button @click="removeListing" class="btn btn-danger">Remove</button>
 </template>
 
 <script>
 export default {
+  props: {
+    reserveId: {
+      type: Number,
+      required: true
+    }
+  },
   methods: {
-    removeListing() {
-      // Logic to remove a listing
-      console.log('Listing removed');
+    async removeListing() {
+      try {
+        const token = sessionStorage.getItem('token');
+        const response = await fetch(`http://localhost:8000/reserve/${this.reserveId}`, {
+          method: 'DELETE',
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+
+        if (!response.ok) {
+          console.log(response);
+          throw new Error('Failed to remove listing');
+        }
+
+        this.$emit('remove');
+      } catch (error) {
+        console.error('Error:', error);
+      }
     }
   }
 }

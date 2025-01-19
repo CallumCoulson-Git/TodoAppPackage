@@ -1,4 +1,3 @@
-
 <template>
   <div class="item mb-5">
     <i>
@@ -11,7 +10,7 @@
       <slot></slot>
       <button @click="addListing" class="btn btn-primary mt-3">Add Listing</button>
     </div>
-    <ManageAddModal v-show="showModal" @close="closeModal" />
+    <ManageAddModal v-show="showModal" @close="closeModal" @listing-added="listingAdded" />
   </div>
 </template>
 
@@ -34,6 +33,9 @@ export default {
     },
     closeModal() {
       this.showModal = false;
+    },
+    listingAdded() {
+      this.$emit('listing-added');
     }
   }
 }

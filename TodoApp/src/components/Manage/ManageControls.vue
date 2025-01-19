@@ -2,11 +2,11 @@
   <div class="flex justify-between items-center rounded-lg p-5">
     <div class="flex items-center">
       <i class="fas fa-edit mr-2"></i>
-      <ManageUpdate class="item"></ManageUpdate>
+      <ManageUpdate class="item" :reserveId="reserveId"></ManageUpdate>
     </div>
     <div class="flex items-center">
       <i class="fas fa-trash mr-2"></i>
-      <ManageRemove class="item"></ManageRemove>
+      <ManageRemove class="item" :reserveId="reserveId" @remove="handleRemove"></ManageRemove>
     </div>
   </div>
 </template>
@@ -19,6 +19,17 @@ export default {
   components: {
     ManageRemove,
     ManageUpdate,
+  },
+  props: {
+    reserveId: {
+      type: Number,
+      required: true
+    }
+  },
+  methods: {
+    handleRemove() {
+      this.$emit('listing-removed');
+    }
   }
 }
 </script>
