@@ -4,6 +4,7 @@ from typing_extensions import Annotated
 from app.database import get_session
 from app.models import User
 from app.routers.auth import get_current_active_user
+from app.schemas import UserInDB
 
 router = APIRouter()
 
