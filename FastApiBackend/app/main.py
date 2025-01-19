@@ -302,6 +302,8 @@ def update_reserve(reserve_id: int, updated_reserve: Reserve, session: Annotated
     if not reserve:
         raise HTTPException(status_code=404, detail="Reserve not found")
     reserve_data = updated_reserve.dict(exclude_unset=True)
+    if 'set_for' in reserve_data and isinstance(reserve_data['set_for'], str):
+        reserve_data['set_for'] = isoparse(reserve_data['set_for'])
     for key, value in reserve_data.items():
         setattr(reserve, key, value)
     session.add(reserve)

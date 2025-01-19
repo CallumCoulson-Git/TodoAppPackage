@@ -6,7 +6,7 @@
       </h3>
       <ul>
         <li v-for="reserve in reserves" :key="reserve.id" class="mb-2">
-          <ListingEntry :reserve="reserve" @listing-removed="fetchListing" />
+          <ListingEntry :reserve="reserve" @listing-removed="fetchListing" @listing-updated="fetchListing"/>
         </li>
       </ul>
     </div>
