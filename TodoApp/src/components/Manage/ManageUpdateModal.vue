@@ -1,7 +1,7 @@
 <template>
   <div class="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center">
     <div class="bg-white p-6 rounded-lg w-96">
-      <h2 class="text-2xl font-bold mb-4 text-gray-700">Add New Todo</h2>
+      <h2 class="text-2xl font-bold mb-4 text-gray-700">Update Todo</h2>
       <form @submit.prevent="submitForm">
         <div class="mb-4">
           <label for="title" class="block text-gray-700">Title:</label>
@@ -9,7 +9,7 @@
         </div>
         <div class="mb-4">
           <label for="setFor" class="block text-gray-700">Set For:</label>
-          <DatePicker v-model="setFor" dateFormat="dd/mm/yy" showTime hourFormat="24" inline class="w-full sm:w-[30rem]" />
+          <DatePicker v-model="setFor" dateFormat="dd/mm/yy" showTime hourFormat="24" />
         </div>
         <div class="flex justify-end">
           <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring">Submit</button>
@@ -23,13 +23,25 @@
 <script>
 import { ref } from 'vue';
 
-const setFor = ref();
-
 export default {
+  props: {
+    reserveId: {
+      type: Number,
+      required: true
+    },
+    initialTitle: {
+      type: String,
+      required: true
+    },
+    initialSetFor: {
+      type: String,
+      required: true
+    }
+  },
   data() {
     return {
-      title: '',
-      setFor: ''
+      title: this.initialTitle,
+      setFor: this.initialSetFor
     };
   },
   methods: {
@@ -38,10 +50,9 @@ export default {
     },
     async submitForm() {
       try {
-        const user = JSON.parse(sessionStorage.getItem('user'));
         const token = sessionStorage.getItem('token');
-        const response = await fetch(`http://localhost:8000/reserve/?user_id=${user.id}`, {
-          method: 'POST',
+        const response = await fetch(`http://localhost:8000/reserve/${this.reserveId}`, {
+          method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
@@ -54,12 +65,12 @@ export default {
 
         if (!response.ok) {
           console.log(response);
-          throw new Error('Failed to add listing');
+          throw new Error('Failed to update listing');
         }
 
         const data = await response.json();
-        console.log('Listing added:', data);
-        this.$emit('listing-added');
+        console.log('Listing updated:', data);
+        this.$emit('listing-updated');
         this.closeModal();
       } catch (error) {
         console.error('Error:', error);

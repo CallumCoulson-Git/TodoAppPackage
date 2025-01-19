@@ -1,7 +1,14 @@
 <script setup>
-import ListingItem from '../ListingItem.vue'
+import { ref } from 'vue';
+import ListingItem from '../ListingItem.vue';
 import ManageAdd from './ManageAdd.vue';
-import ManageShowListing from './ManageShowListing.vue'
+import ManageShowListing from './ManageShowListing.vue';
+
+const showListingRef = ref(null);
+
+function fetchListing() {
+  showListingRef.value.fetchListing();
+}
 </script>
 
 <template>
@@ -13,7 +20,7 @@ import ManageShowListing from './ManageShowListing.vue'
     Below You can manage the entry listings with the specified buttons
   </ListingItem>
 
-  <ManageShowListing @listing-added="fetchListing">
+  <ManageShowListing ref="showListingRef" @listing-added="fetchListing">
     <template #icon>
       <i class="fas fa-plus"></i>
     </template>
@@ -23,13 +30,3 @@ import ManageShowListing from './ManageShowListing.vue'
   <ManageAdd @listing-added="fetchListing"></ManageAdd>
   <ManageControls></ManageControls>
 </template>
-
-<script>
-export default {
-  methods: {
-    fetchListing() {
-      this.$refs.showListing.fetchListing();
-    }
-  }
-}
-</script>

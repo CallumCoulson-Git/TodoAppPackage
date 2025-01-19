@@ -2,7 +2,7 @@
   <div class="flex justify-between items-center rounded-lg p-5">
     <div class="flex items-center">
       <i class="fas fa-edit mr-2"></i>
-      <ManageUpdate class="item" :reserveId="reserveId"></ManageUpdate>
+      <ManageUpdate class="item" :reserveId="reserveId" :initialTitle="reserve.title" :initialSetFor="reserve.set_for" @listing-updated="handleUpdate" />
     </div>
     <div class="flex items-center">
       <i class="fas fa-trash mr-2"></i>
@@ -24,11 +24,18 @@ export default {
     reserveId: {
       type: Number,
       required: true
+    },
+    reserve: {
+      type: Object,
+      required: true
     }
   },
   methods: {
     handleRemove() {
       this.$emit('listing-removed');
+    },
+    handleUpdate() {
+      this.$emit('listing-updated');
     }
   }
 }
